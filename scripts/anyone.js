@@ -7,6 +7,6 @@
 
 module.exports = function (robot) {
 	robot.hear(/anyone/ ,function(res){
-		res.reply("Pick me! Pick me!");
+		res.send("Pick me! Pick me!");
 	})
 }

@@ -38,3 +38,5 @@ jspm_packages
 
 .hubot_history
 .node-version
+
+.DS_Store

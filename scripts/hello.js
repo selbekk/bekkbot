@@ -7,6 +7,7 @@
 
 module.exports = function (robot) {
 	robot.respond(/hello/ ,function(res){
-		res.reply("Hola!");
+		var welcomes = ["Hola!", "Hei!", "Bonjour!", "Hello to you too"]
+		res.reply(res.random(welcomes));
 	})
 }

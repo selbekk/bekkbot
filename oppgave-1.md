@@ -35,5 +35,8 @@ og at navnet ditt ikke er en del av bot-svaret
 
 Sjekk ut `hubot help` eller `hubot help hello` - den finnes mest sannsynligvis ikke..? Om ikke du har laget den allerede, litt forut for din tid ;)
 
-Sjekk ut avsnittet `Documenting Scripts` i [script-dokumentasjonen](https://github.com/github/hubot/blob/master/docs/scripting.md) og legg til dokumentasjon for `hello`-kommandoen. Husk at utkommentering av linjer er `//` om du skiver js :) 
+Sjekk ut avsnittet `Documenting Scripts` i [script-dokumentasjonen](https://github.com/github/hubot/blob/master/docs/scripting.md) og legg til dokumentasjon for `hello`-kommandoen. Husk at utkommentering av linjer er `//` om du skiver js :)
 
+## Del 4 - random
+
+For å gi huboten din litt personlighet og gjøre den litt mindre statisk. Prøv for eksempel å ta i bruk `res.random` til å gi tilfeldig responser på `hubot hello`

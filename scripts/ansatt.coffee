@@ -5,11 +5,12 @@
 #   hubot ansatte - hvor mange ansatte har bekk?
 
 auth = require('./../lib/auth.js')
+employeeSvcUrl = "https://api.dev.bekk.no/employee-svc/"
 
 module.exports = (robot) ->
   robot.respond /ansatte/i, (res) ->
     auth.getToken (token) ->
-      robot.http("https://api.dev.bekk.no/employee-svc/employees")
+      robot.http(employeeSvcUrl + "employees")
       .header('Authorization', "Bearer #{token}")
       .get() (err, response, body) ->
         responseData = null

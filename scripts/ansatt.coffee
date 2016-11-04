@@ -18,26 +18,15 @@ module.exports = (robot) ->
     auth.getToken (token) ->
       robot.http(employeeSvcUrl + "employees")
       .header('Authorization', "Bearer #{token}")
-      .get() (err, response, body) ->
-        responseData = null
-        try
-          responseData = JSON.parse body
-        catch error
-          res.send "Noe gikk åt skogen da jeg skulle parse JSON. Kjipe greier :("
-          return
-        res.reply "Antall ansatte i BEKK-sjappa er #{responseData.length}! :olav:"
+      responseData = JSON.parse body
+      res.reply "Antall ansatte i BEKK-sjappa er #{responseData.length}! :olav:"
 
   robot.respond /vis (.*)/i, (res) ->
     auth.getToken (token) ->
       robot.http(employeeSvcUrl + "employees")
       .header('Authorization', "Bearer #{token}")
       .get() (err, response, body) ->
-        ansatte = null
-        try
-          ansatte = JSON.parse body
-        catch error
-          res.send "Noe gikk åt skogen da jeg skulle parse JSON. Kjipe greier :("
-          return
+        ansatte = JSON.parse body
         text = res.match[1]
         if text.indexOf("med skjegg") > -1
           utrimmaAnsattnavn = text.replace /med skjegg/, ""
@@ -61,12 +50,7 @@ module.exports = (robot) ->
       robot.http(employeeSvcUrl + "employees")
       .header('Authorization', "Bearer #{token}")
       .get() (err, response, body) ->
-        ansatte = null
-        try
-          ansatte = JSON.parse body
-        catch error
-          res.send "Noe gikk åt skogen da jeg skulle parse JSON. Kjipe greier :("
-          return
+        ansatte = JSON.parse body
         ansattnavn = res.match[1]
         ansatteMedLiktNavn = ansatte.filter (ansatt) -> ansatt.name.toLowerCase() is ansattnavn.toLowerCase()
         if ansatteMedLiktNavn.length != 1
@@ -78,12 +62,7 @@ module.exports = (robot) ->
           .header('Content-Type', 'application/json')
           .header('Ocp-Apim-Subscription-Key', process.env.MS_EMOTION_API_TOKEN)
           .post(requestBody) (err, response, body) ->
-            parsedResponse = null
-            try
-              parsedResponse = JSON.parse body
-            catch error
-              res.send "Noe gikk åt skogen da jeg skulle parse JSON. Kjipe greier :("
-              return
+            parsedResponse = JSON.parse body
             gladhet = parsedResponse[0].scores.happiness
             gladhetProsent = (gladhet * 100).toFixed()
             res.reply "#{ansattnavn} med ansattbilde #{ansattBilde} er #{gladhetProsent}% glad! :grin:"

@@ -10,7 +10,7 @@
 auth = require('./../lib/auth.js')
 employeeSvcUrl = "https://api.dev.bekk.no/employee-svc/"
 
-ansattImageWidth = 300
+ansattImageWidth = 500
 getAnsattBilde = (ansatt) -> ansatt.employeeImageUrl.replace /w_500/, "w_#{ansattImageWidth}"
 
 module.exports = (robot) ->

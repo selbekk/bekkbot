@@ -10,6 +10,9 @@
 auth = require('./../lib/auth.js')
 employeeSvcUrl = "https://api.dev.bekk.no/employee-svc/"
 
+ansattImageWidth = 300
+getAnsattBilde = (ansatt) -> ansatt.employeeImageUrl.replace /w_500/, "w_#{ansattImageWidth}"
+
 module.exports = (robot) ->
   robot.respond /ansatte/i, (res) ->
     auth.getToken (token) ->
@@ -43,14 +46,14 @@ module.exports = (robot) ->
           if ansatteMedLiktNavn.length != 1
             res.reply "Beklager, jeg skjønner ikke hvem <#{ansattnavn}> er :confused: Kan du prøve med et annet navn? :smile:"
           else
-            res.reply 'https://wurstify.me/proxy?since=0&url=' + ansatteMedLiktNavn[0].employeeImageUrl
+            res.reply 'https://wurstify.me/proxy?since=0&url=' + getAnsattBilde(ansatteMedLiktNavn[0])
         else
           ansattnavn = text.trim()
           ansatteMedLiktNavn = ansatte.filter (ansatt) -> ansatt.name.toLowerCase() is ansattnavn.toLowerCase()
           if ansatteMedLiktNavn.length != 1
             res.reply "Beklager, jeg skjønner ikke hvem <#{ansattnavn}> er :confused: Kan du prøve med et annet navn? :smile:"
           else
-            res.reply ansatteMedLiktNavn[0].employeeImageUrl
+            res.reply getAnsattBilde(ansatteMedLiktNavn[0])
 
 
   robot.respond /hvor glad er (.*)/i, (res) ->
@@ -69,7 +72,7 @@ module.exports = (robot) ->
         if ansatteMedLiktNavn.length != 1
           res.reply "Beklager, jeg skjønner ikke hvem <#{ansattnavn}> er :confused: Kan du prøve med et annet navn? :smile:"
         else
-          ansattBilde = ansatteMedLiktNavn[0].employeeImageUrl
+          ansattBilde = getAnsattBilde(ansatteMedLiktNavn[0])
           requestBody = JSON.stringify({ url: ansattBilde })
           robot.http("https://api.projectoxford.ai/emotion/v1.0/recognize")
           .header('Content-Type', 'application/json')
